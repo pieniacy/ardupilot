@@ -24,7 +24,8 @@
 #endif
 
 using namespace ChibiOS;
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
 // GPIO pin table from hwdef.dat
 static struct gpio_entry {
     uint8_t pin_num;
@@ -37,6 +38,7 @@ static struct gpio_entry {
     thread_reference_t thd_wait;
     uint16_t isr_quota;
 } _gpio_tab[] = HAL_GPIO_PINS;
+#pragma GCC diagnostic pop
 
 #define NUM_PINS ARRAY_SIZE(_gpio_tab)
 #define PIN_ENABLED(pin) ((pin)<NUM_PINS && _gpio_tab[pin].enabled)
