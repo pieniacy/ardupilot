@@ -2,6 +2,12 @@
 
 The [KakuteF4 AIO](http://www.holybro.com/product/47) is a flight controller produced by [Holybro](http://www.holybro.com).
 
+## Modified version!
+
+This is a modified target to allow 7 outputs from Kakute F4.
+LED strip pad is utilized as number five and SmartPort (USART1) circuitry is desoldered to allow outputs PA9 and PA10 be use as outputs number six and seven.
+Serial order is also changed.
+
 ## Features
 
  - STM32F405 microcontroller
@@ -24,41 +30,34 @@ The pin labelled Rx on each corner of the board is a common pin for
 ESC telemetry input.
 
  - SERIAL0 -> USB
- - SERIAL1 -> UART6 (Telem1)
- - SERIAL2 -> UART1 (FrSky S.Port)
- - SERIAL3 -> UART4 (GPS)
- - SERIAL4 -> UART5 (ESC Telemetry, RX only)
- - SERIAL5 -> UART3 (spare, TX only)
+ - SERIAL1 -> UART3 (RC input)
+ - SERIAL2 -> UART4
+ - SERIAL3 -> USART6 (GPS by default)
+ - SERIAL4 -> UART5 (ESC Telemetry pads, RX only)
 
 ## RC Input
  
-RC input is configured on the R6 (UART3_RX) pin. It supports all RC protocols.
+RC input is configured on the R3 (UART3_RX) pin. It supports all RC protocols.
  
 ## FrSky Telemetry
  
-FrSky Telemetry is supported using the SmartPort pad (UART1). You need
-to set the following parameters to enable support for FrSky S.PORT. It
-has builtin inverters and a diode to allow for operation from a single
-pin with no special adapters.
- 
-  - SERIAL2_PROTOCOL 10
-  - SERIAL2_OPTIONS 0
+FrSky Telemetry is removed (desoldered inverters) to allow for two additional motor/servo outputs.
   
 ## OSD Support
 
-The KakuteF4 supports OSD using OSD_TYPE 1 (MAX7456 driver).
+The KakuteF4 supports OSD using OSD_TYPE 1 (MAX7456 driver). You can also connect DJI on a spare serial.
 
 ## PWM Output
 
-The KakuteF4 supports up to 4 PWM outputs. The pads for motor output
-M1 to M4 on the above diagram are for the 4 outputs. All 4 outputs
-support DShot as well as all PWM types. The M5 and M6 outputs are not
-currently available with ArduPilot.
+The KakuteF4 supports up to 4 PWM outputs. But this target enhances it to seven, but requires desoldering of SmartPort inverters.
+All outputs support DShot as well as all PWM types. 
 
-The PWM is in 2 groups:
+Outputs have following groups:
 
- - PWM 1 and 4 in group1
- - PWM 2 and 3 in group2
+ - PWM 1 and 2 in group1
+ - PWM 3 and 4 in group2
+ - PWM 5 in group3
+ - PWM 6 and 7 in group4
 
 Channels within the same group need to use the same output rate. If
 any channel in a group uses DShot then all channels in the group need
